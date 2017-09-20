@@ -1,22 +1,40 @@
-%nav.navbar.navbar-inverse.navbar-fixed-top
+/ Navigation
+%nav.navbar.navbar-expand-lg.navbar-dark.bg-dark.fixed-top
   .container
-    .navbar-header
-      %button.navbar-toggle.collapsed{"aria-controls" => "navbar", "aria-expanded" => "false", "data-target" => "#navbar", "data-toggle" => "collapse", :type => "button"}
-        %span.sr-only Toggle navigation
-        %span.icon-bar
-        %span.icon-bar
-        %span.icon-bar
-      %a.navbar-brand{:href => "#"} Shopping Cart
+    %a.navbar-brand{:href => "#"} Start Bootstrap
+    %button.navbar-toggler{"aria-controls" => "navbarResponsive", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarResponsive", "data-toggle" => "collapse", :type => "button"}
+      %span.navbar-toggler-icon
+    #navbarResponsive.collapse.navbar-collapse
+      %ul.navbar-nav.ml-auto
+        %li.nav-item.active
+          %a.nav-link{:href => "#"}
+            Home
+            %span.sr-only (current)
+        %li.nav-item
+          %a.nav-link{:href => "#"} About
+        %li.nav-item
+          %a.nav-link{:href => "#"} Contact
 
-    - if current_user
+/
+  %nav.navbar.navbar-inverse.navbar-fixed-top
+    .container
+      .navbar-header
+        %button.navbar-toggle.collapsed{"aria-controls" => "navbar", "aria-expanded" => "false", "data-target" => "#navbar", "data-toggle" => "collapse", :type => "button"}
+          %span.sr-only Toggle navigation
+          %span.icon-bar
+          %span.icon-bar
+          %span.icon-bar
+        %a.navbar-brand{:href => "#"} Shopping Cart
+
       #navbar.navbar-collapse.collapse
         %ul.nav.navbar-nav
           %li= link_to 'Products', root_path
           %li= link_to 'My Cart', carts_path
-        %ul.nav.navbar-nav.navbar-right
-          %li.dropdown.pull-right
-            %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
-              = current_user.name
-              %span.caret
-            %ul.dropdown-menu.navbar-right
-              %li= link_to "Sign Out", destroy_user_session_path, method: :delete
+        - if current_user
+          %ul.nav.navbar-nav.navbar-right
+            %li.dropdown.pull-right
+              %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+                = current_user.name
+                %span.caret
+              %ul.dropdown-menu.navbar-right
+                %li= link_to "Sign Out", destroy_user_session_path, method: :delete
