@@ -1,0 +1,22 @@
+%nav.navbar.navbar-inverse.navbar-fixed-top
+  .container
+    .navbar-header
+      %button.navbar-toggle.collapsed{"aria-controls" => "navbar", "aria-expanded" => "false", "data-target" => "#navbar", "data-toggle" => "collapse", :type => "button"}
+        %span.sr-only Toggle navigation
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+      %a.navbar-brand{:href => "#"} Shopping Cart
+
+    - if current_user
+      #navbar.navbar-collapse.collapse
+        %ul.nav.navbar-nav
+          %li= link_to 'Products', root_path
+          %li= link_to 'My Cart', carts_path
+        %ul.nav.navbar-nav.navbar-right
+          %li.dropdown.pull-right
+            %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+              = current_user.name
+              %span.caret
+            %ul.dropdown-menu.navbar-right
+              %li= link_to "Sign Out", destroy_user_session_path, method: :delete
