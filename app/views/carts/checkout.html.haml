@@ -10,6 +10,8 @@
         %th.text-center Total
     %tbody
       - if @cart_products.present?
+        - total = 0.0
+
         - @cart_products.each do |cart_item|
           %tr
             %td
@@ -22,15 +24,23 @@
             %td
               %h5= cart_item.quantity
 
-            %td= number_to_currency(cart_item.price.to_f, precision: 2)
+            %td
+              - price = cart_item.price.to_f
 
-            %td= number_to_currency(cart_item.price.to_f * cart_item.quantity.to_i, precision: 2)
+              - if cart_item.price != cart_item.product.price
+                - price = cart_item.product.price.to_f
+
+              = number_to_currency(price, precision: 2)
+
+            %td
+              - total += price * cart_item.quantity.to_i
+              = number_to_currency(price * cart_item.quantity.to_i, precision: 2)
 
         %tr
           %td.text-right{colspan: 3}
             %h5 Total
           %td{colspan: 1}
-            %h5= number_to_currency(@total.to_f, precision: 2)
+            %h5= number_to_currency(total, precision: 2)
       - else
         %tr
           %td{colspan: 4}

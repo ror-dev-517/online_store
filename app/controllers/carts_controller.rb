@@ -48,7 +48,7 @@ class CartsController < ApplicationController
 
   def cart_products
     if current_user
-      @cart_products = current_user.cart_items
+      @cart_products = current_user.cart_items.order("created_at DESC")
     else
       if session[:cart].present?
         cart = []

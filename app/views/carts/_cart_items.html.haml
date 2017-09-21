@@ -22,12 +22,12 @@
 
             - price = cart_item.price.to_f
 
-            - if (cart_item.price/cart_item.quantity) != cart_item.product.price
+            - if cart_item.price != cart_item.product.price
               - price = cart_item.product.price.to_f
 
               .col-md-12{style: "margin-top: 10px; color: red;"}
                 %span.error
-                  * This product's price has been changed. Check before checkout.
+                  = "* This product's price has been changed(Old Price - $ #{cart_item.price}). Check before checkout."
 
 
           %td= text_field_tag 'product_quantity', cart_item.quantity, class: 'form-control product-quantity'
