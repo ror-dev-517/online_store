@@ -49,7 +49,6 @@ class CartsController < ApplicationController
   def cart_products
     if current_user
       @cart_products = current_user.cart_items
-      @total = @cart_products.pluck(:total).map(&:to_f).inject(:+)
     else
       if session[:cart].present?
         cart = []
@@ -57,7 +56,6 @@ class CartsController < ApplicationController
           cart << Cart.new(product_id: product_id, quantity: cart_hash["quantity"], price: cart_hash["price"], total: (cart_hash["quantity"].to_i * cart_hash["price"].to_f))
         end
         @cart_products = cart
-        @total = @cart_products.map{|c| c.total.to_f}.inject(:+)
       end
     end
   end
