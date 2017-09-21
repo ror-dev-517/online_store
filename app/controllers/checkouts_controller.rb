@@ -1,5 +1,5 @@
 class CheckoutsController < ApplicationController
-  before_action :authenticate_user!, only: [:checkout]
+  before_action :authenticate_user!
 
   def place_order
     order = current_user.orders.build
