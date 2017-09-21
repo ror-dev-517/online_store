@@ -8,7 +8,7 @@
 
 user_names = [{name: 'João', email: 'joao@test.com'}, {name: 'Diogo', email: 'diogo@test.com'}]
 
-product_details = [{name: 'Learn RoR - Beginner', price: 24.99}, {name:'Mastering RoR - Level over 9000', price: 9001.00}]
+product_details = [{name: 'Learn RoR - Beginner', price: 24.99}, {name:'Mastering RoR - Level over 9000', price: 9001.00}, {name: 'Learn Python - Beginner', price: 18.50}]
 
 user_names.each do |user|
   User.create(name: user[:name], password: 'test123', email: user[:email])

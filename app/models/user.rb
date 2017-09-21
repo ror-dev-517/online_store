@@ -6,5 +6,5 @@ class User < ActiveRecord::Base
 
   ## Associations
   has_many :cart_items, class_name: "Cart", dependent: :destroy
-  has_many :orders
+  has_many :orders, dependent: :destroy
 end

@@ -1,8 +1,8 @@
 / Navigation
 %nav.navbar.navbar-expand-lg.navbar-dark.bg-dark.fixed-top
-  .container
+  .container{style: "max-width: 100%; margin-right: 0;"}
     = link_to root_path, class: 'navbar-brand' do
-      Book Shelf
+      Book SHELF
 
     %button.navbar-toggler{"aria-controls" => "navbarResponsive", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarResponsive", "data-toggle" => "collapse", :type => "button"}
       %span.navbar-toggler-icon
@@ -11,7 +11,7 @@
       %ul.navbar-nav.ml-auto
         - if current_user
           %li.nav-item
-            = link_to "Sign Out", destroy_user_session_path, method: :delete, class: 'nav-link btn btn-default border-1px'
+            = link_to "Sign Out", destroy_user_session_path, method: :delete, class: 'navbar-brand btn btn-default border-1px'
         - else
           %li.nav-item
-            = link_to "Sign In", new_user_session_path, class: 'nav-link btn btn-default border-1px'
+            = link_to "Sign In", new_user_session_path, class: 'navbar-brand btn btn-default border-1px'

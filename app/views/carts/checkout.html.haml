@@ -39,5 +39,5 @@
 .row
   .col-md-12{style: "padding-right: 0"}
     - if @cart_products.present?
-      = link_to "Place Order", place_order_checkouts_path, class: 'btn btn-success pull-right'
+      = link_to "Place Order", place_order_checkouts_path, method: :post, class: 'btn btn-success pull-right'
       = link_to "Continue Shopping", root_path, class: 'btn btn-primary pull-right', style: "margin-right: 10px;"

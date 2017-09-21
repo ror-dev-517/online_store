@@ -8,15 +8,15 @@
     = csrf_meta_tags
   %body
     = render 'layouts/header'
-    .container
-      .alert.hidden#alertSection
+    .alert.hidden#alertSection
+      /%button.close-alert{"aria-hidden" => "true", "data-dismiss" => "alert", :type => "button"} ×
+      %span
+
+    - flash_classes = {notice: "alert-success", alert: "alert-danger"}
+    - flash.each do |type, message|
+      #flash-errors{:class => "alert #{flash_classes[type.to_sym]}"}
         %button.close{"aria-hidden" => "true", "data-dismiss" => "alert", :type => "button"} ×
-        %span
+        = message
 
-      - flash_classes = {notice: "alert-success", alert: "alert-danger"}
-      - flash.each do |type, message|
-        #flash-errors{:class => "alert #{flash_classes[type.to_sym]}"}
-          %button.close{"aria-hidden" => "true", "data-dismiss" => "alert", :type => "button"} ×
-          = message
-
+    .container
       = yield
