@@ -11,16 +11,17 @@ Rails.application.routes.draw do
   root 'products#index'
 
   resources :products do
-    post :add_to_cart
   end
 
   resources :carts do
     collection do
       post :destroy_cart_item
+      get :checkout
     end
   end
 
-  resources :checkouts
+  post 'checkouts/place_order' => 'checkouts#place_order', as: :place_order_checkouts
+  post 'carts/:product_id/add_to_cart' => 'carts#add_to_cart', as: :add_to_cart
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

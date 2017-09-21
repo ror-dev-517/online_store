@@ -12,4 +12,4 @@
               Price : 
               = number_to_currency(product.price.to_f, precision: 2)
 
-        = link_to "Add To Cart", product_add_to_cart_url(product_id: product.id), method: :post, remote: true, class: 'btn btn-info'
+        = link_to "Add To Cart", add_to_cart_path(product_id: product.id), method: :post, remote: true, class: 'btn btn-info'

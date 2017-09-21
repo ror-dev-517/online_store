@@ -1,0 +1,43 @@
+%h3 Review Your Order
+
+.row
+  %table.table.table-bordered.table-responsive
+    %thead
+      %tr
+        %th Product
+        %th Quantity
+        %th.text-center Price
+        %th.text-center Total
+    %tbody
+      - if @cart_products.present?
+        - @cart_products.each do |cart_item|
+          %tr
+            %td
+              .col-md-5.display-inline
+                %img.img-fluid.rounded.mb-3.mb-md-0{:alt => "", :src => "http://placehold.it/700x300"}
+
+              .col-md-6.display-inline
+                %h5= cart_item.product.name
+
+            %td
+              %h5= cart_item.quantity
+
+            %td= number_to_currency(cart_item.price.to_f, precision: 2)
+
+            %td= number_to_currency(cart_item.price.to_f * cart_item.quantity.to_i, precision: 2)
+
+        %tr
+          %td.text-right{colspan: 3}
+            %h5 Total
+          %td{colspan: 1}
+            %h5= number_to_currency(@total.to_f, precision: 2)
+      - else
+        %tr
+          %td{colspan: 4}
+            %h4.text-center No items found.
+
+.row
+  .col-md-12{style: "padding-right: 0"}
+    - if @cart_products.present?
+      = link_to "Place Order", place_order_checkouts_path, class: 'btn btn-success pull-right'
+      = link_to "Continue Shopping", root_path, class: 'btn btn-primary pull-right', style: "margin-right: 10px;"

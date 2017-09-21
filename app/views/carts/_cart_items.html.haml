@@ -1,0 +1,36 @@
+%table.table.table-bordered.table-responsive
+  %thead
+    %tr
+      %th Product
+      %th Quantity
+      %th.text-center Price
+      %th.text-center Total
+      %th Actions
+  %tbody
+    - if @cart_products.present?
+      - @cart_products.each do |cart_item|
+        %tr
+          %td
+            .col-md-5.display-inline
+              %img.img-fluid.rounded.mb-3.mb-md-0{:alt => "", :src => "http://placehold.it/700x300"}
+
+            .col-md-6.display-inline
+              %h5= cart_item.product.name
+
+          %td= text_field_tag 'cart[:quantity]', cart_item.quantity, class: 'form-control'
+
+          %td= number_to_currency(cart_item.price.to_f, precision: 2)
+
+          %td= number_to_currency(cart_item.price.to_f * cart_item.quantity.to_i, precision: 2)
+
+          %td
+            = link_to "Remove", destroy_cart_item_carts_path(product_id: cart_item.product_id), method: :post, class: 'btn btn-danger', data: { confirm: "Are you sure want to remove item from cart." }
+      %tr
+        %td.text-right{colspan: 3}
+          %h5 Total
+        %td{colspan: 2}
+          %h5= number_to_currency(@total.to_f, precision: 2)
+    - else
+      %tr
+        %td{colspan: 5}
+          %h4.text-center No items present in your cart.
