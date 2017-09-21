@@ -10,14 +10,13 @@ class CartsController < ApplicationController
 
     if current_user.present?
       cart_item = Cart.find_or_initialise_by(product_id: product.id, user_id: current_user.id) 
-      cart_item.quantity = cart_item.quantity.to_i + (cart_params[:quantity] || 1)
+      cart_item.quantity = (params[:product_quantity] || cart_item.quantity.to_i + 1).to_i
       cart_item.price = product.price
       cart_item.save
     else
       session[:cart] ||= {}
-
       session[:cart][product.id.to_s] = {
-        quantity: session[:cart][product.id.to_s].try(:[], "quantity").to_i + 1,
+        quantity: (params[:product_quantity] || session[:cart][product.id.to_s].try(:[], "quantity").to_i + 1).to_i,
         price: product.price
       }
     end
@@ -33,7 +32,7 @@ class CartsController < ApplicationController
         session[:cart].delete(params[:product_id])
       end
     end
-    redirect_to carts_path
+    redirect_to carts_path, notice: "Product sucessfully removed from your cart."
   end
 
   def checkout
@@ -49,10 +48,6 @@ class CartsController < ApplicationController
 
 
   private
-
-  def cart_params
-    params.require(:cart).permit(:quantity)
-  end
 
   def cart_products
     if current_user

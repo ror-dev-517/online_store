@@ -3,12 +3,20 @@
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
     %title OnlineStore
-    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
-    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => false
+    = javascript_include_tag 'application', 'data-turbolinks-track' => false
     = csrf_meta_tags
   %body
     = render 'layouts/header'
     .container
-      %p.notice= notice
-      %p.alert= alert
+      .alert.hidden#alertSection
+        %button.close{"aria-hidden" => "true", "data-dismiss" => "alert", :type => "button"} ×
+        %span
+
+      - flash_classes = {notice: "alert-success", alert: "alert-danger"}
+      - flash.each do |type, message|
+        #flash-errors{:class => "alert #{flash_classes[type.to_sym]}"}
+          %button.close{"aria-hidden" => "true", "data-dismiss" => "alert", :type => "button"} ×
+          = message
+
       = yield

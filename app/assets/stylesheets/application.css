@@ -17,12 +17,12 @@
  */
 
 body {
-  padding-top: 54px;
+  padding-top: 60px;
 }
 
 @media (min-width: 992px) {
   body {
-    padding-top: 56px;
+    padding-top: 60px;
   }
 }
 
@@ -40,4 +40,8 @@ body {
 
 .border-1px {
   border: 1px solid;
+}
+
+.hidden {
+  display: none !important;
 }

@@ -9,7 +9,7 @@
   %tbody
     - if @cart_products.present?
       - @cart_products.each do |cart_item|
-        %tr
+        %tr{data: { product_id: cart_item.product.id }}
           %td
             .col-md-5.display-inline
               %img.img-fluid.rounded.mb-3.mb-md-0{:alt => "", :src => "http://placehold.it/700x300"}
@@ -17,7 +17,7 @@
             .col-md-6.display-inline
               %h5= cart_item.product.name
 
-          %td= text_field_tag 'cart[:quantity]', cart_item.quantity, class: 'form-control'
+          %td= text_field_tag 'product_quantity', cart_item.quantity, class: 'form-control product-quantity'
 
           %td= number_to_currency(cart_item.price.to_f, precision: 2)
 

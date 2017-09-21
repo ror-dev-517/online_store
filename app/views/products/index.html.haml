@@ -1,4 +1,8 @@
 .row
+  .col-sm-12#cartButton{style: 'padding-bottom: 10px;'}
+    = render 'carts/cart_button'
+
+.row
   - @products.each do |product|
     .col-lg-4.col-md-5.col-sm-7.portfolio-item
       .card.h-100
