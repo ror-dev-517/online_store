@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :order do
-    user_id 1
+    user
     gross_amount 1.5
     tax_amount 1.5
     discount_amount 1.5
