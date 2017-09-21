@@ -1,5 +1,5 @@
 $(document).on("change", ".product-quantity", function(e){
-  var quantity = $(this).val();
+  var quantity = parseInt($(this).val());
   var productId = $(this).closest('tr').data('productId');
 
   $.ajax({

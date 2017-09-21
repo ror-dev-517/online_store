@@ -25,9 +25,14 @@ class CartsController < ApplicationController
 
   def destroy_cart_item
     cart_item = Cart.find_by(product_id: params[:product_id], user_id: current_user.try(:id).to_i)
-    cart_item.destroy if cart_item.present?
-    session[:cart].delete(params[:product_id]) if session[:cart].present?
-    redirect_to carts_path, notice: "Product sucessfully removed from your cart."
+
+    if cart_item.present? || session[:cart].present?
+      cart_item.destroy
+      session[:cart].delete(params[:product_id])
+      redirect_to carts_path, notice: "Product sucessfully removed from your cart."
+    else
+      redirect_to carts_path, error: "Product not found."
+    end
   end
 
   def checkout
@@ -39,24 +44,16 @@ class CartsController < ApplicationController
       end
       session.delete(:cart)
     end
-    @cart_products = current_user.cart_items
-    @total = @cart_products.pluck(:price).map(&:to_f).inject(:+)
+
+    # @cart_products = Cart.get_cart_products(current_user)
+    # @total = @cart_products.pluck(:price).map(&:to_f).inject(:+)
+    cart_products
   end
 
 
   private
 
   def cart_products
-    if current_user
-      @cart_products = current_user.cart_items.order("created_at DESC")
-    else
-      if session[:cart].present?
-        cart = []
-        session[:cart].each do |product_id, cart_hash|
-          cart << Cart.new(product_id: product_id, quantity: cart_hash["quantity"], price: cart_hash["price"], total: (cart_hash["quantity"].to_i * cart_hash["price"].to_f))
-        end
-        @cart_products = cart
-      end
-    end
+    @cart_products = Cart.get_cart_products(current_user, session[:cart])
   end
 end
