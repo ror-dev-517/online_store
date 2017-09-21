@@ -8,7 +8,10 @@
       %th Actions
   %tbody
     - if @cart_products.present?
+      - total = 0.0
+
       - @cart_products.each do |cart_item|
+
         %tr{data: { product_id: cart_item.product.id }}
           %td
             .col-md-5.display-inline
@@ -17,11 +20,24 @@
             .col-md-6.display-inline
               %h5= cart_item.product.name
 
+            - price = cart_item.price.to_f
+
+            - if (cart_item.price/cart_item.quantity) != cart_item.product.price
+              - price = cart_item.product.price.to_f
+
+              .col-md-12{style: "margin-top: 10px; color: red;"}
+                %span.error
+                  * This product's price has been changed. Check before checkout.
+
+
           %td= text_field_tag 'product_quantity', cart_item.quantity, class: 'form-control product-quantity'
 
-          %td= number_to_currency(cart_item.price.to_f, precision: 2)
+          %td= number_to_currency(price, precision: 2)
 
-          %td= number_to_currency(cart_item.price.to_f * cart_item.quantity.to_i, precision: 2)
+          %td
+            - total += price * cart_item.quantity.to_i
+
+            = number_to_currency(price * cart_item.quantity.to_i, precision: 2)
 
           %td
             = link_to "Remove", destroy_cart_item_carts_path(product_id: cart_item.product_id), method: :post, class: 'btn btn-danger', data: { confirm: "Are you sure want to remove item from cart." }
@@ -29,7 +45,7 @@
         %td.text-right{colspan: 3}
           %h5 Total
         %td{colspan: 2}
-          %h5= number_to_currency(@total.to_f, precision: 2)
+          %h5= number_to_currency(total.to_f, precision: 2)
     - else
       %tr
         %td{colspan: 5}
