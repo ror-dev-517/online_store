@@ -32,13 +32,11 @@ RSpec.describe CartsController, type: :controller do
     it 'should return all cart items' do
       get :index
       expect(assigns(:cart_products).count).to eq(1)
-      expect(assigns(:total)).to eq(10)
     end
 
     it 'should return all cart items on current user' do
       get :index
       expect(assigns(:cart_products).count).to eq(1)
-      expect(assigns(:total)).to eq(10)
     end
 
     it 'should return all cart items without current user' do
@@ -50,7 +48,6 @@ RSpec.describe CartsController, type: :controller do
       }
       get :index
       expect(assigns(:cart_products).count).to eq(1)
-      expect(assigns(:total)).to eq(10)
     end
   end
 
@@ -85,7 +82,6 @@ RSpec.describe CartsController, type: :controller do
     it 'should return all cart items' do
       get :checkout
       expect(assigns(:cart_products).count).to eq(1)
-      expect(assigns(:total)).to eq(10)
     end
   end
 end
