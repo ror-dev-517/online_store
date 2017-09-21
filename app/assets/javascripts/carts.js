@@ -8,10 +8,6 @@ $(document).on("change", ".product-quantity", function(e){
     data: {
       product_quantity: quantity
     }
-  }).success(function (data) {
-    console.log(data);
-  }).error(function (data) {
-    console.log(data);
   })
 })
 

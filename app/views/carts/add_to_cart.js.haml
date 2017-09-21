@@ -1,4 +1,6 @@
 $('#cartButton').html("#{escape_javascript render 'cart_button'}");
+$('#cartItems').html("#{escape_javascript render 'cart_items'}");
+
 $('#alertSection').removeClass('hidden');
 $('#alertSection').addClass('alert-success');
 $('#alertSection span').text('Product added to your cart.');
