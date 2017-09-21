@@ -10,9 +10,6 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'products#index'
 
-  resources :products do
-  end
-
   resources :carts do
     collection do
       post :destroy_cart_item
