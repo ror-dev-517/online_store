@@ -1,68 +1,45 @@
-.container{:style => "margin:110px;"}
-  .row
-    .col-sm-12.col-md-10.col-md-offset-1
-      %table.table.table-hover
-        %thead
+%h3 Cart Items
+
+.row
+  %table.table.table-bordered.table-responsive
+    %thead
+      %tr
+        %th Product
+        %th Quantity
+        %th.text-center Price
+        %th.text-center Total
+        %th Actions
+    %tbody
+      - if @cart_products.present?
+        - @cart_products.each do |cart_item|
           %tr
-            %th Product
-            %th Quantity
-            %th.text-center Price
-            %th.text-center Total
-            %th  
-        %tbody
-          - @cart_products.each do |product|
-            %tr
-              %td.col-sm-8.col-md-6
-                .media
-                  %a.thumbnail.pull-left{:href => "#"}
-                    %img.media-object{:src => "http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png", :style => "width: 72px; height: 72px;"}/
-                  .media-body
-                    %h4.media-heading
-                      %a{:href => "#"}= product.name
-              %td.col-sm-1.col-md-1{:style => "text-align: center"}
-                %input#exampleInputEmail1.form-control{:type => "email", :value => "3"}/
-              %td.col-sm-1.col-md-1.text-center
-                %strong= product.price
-              %td.col-sm-1.col-md-1
-                %button.btn.btn-danger{:type => "button"}
-                  %span.glyphicon.glyphicon-add
-                  Remove
-          %tr
-            %td  
-            %td  
-            %td  
             %td
-              %h5 Subtotal
-            %td.text-right
-              %h5
-                %strong $24.59
-          %tr
-            %td  
-            %td  
-            %td  
+              .col-md-5.display-inline
+                %img.img-fluid.rounded.mb-3.mb-md-0{:alt => "", :src => "http://placehold.it/700x300"}
+
+              .col-md-6.display-inline
+                %h5= cart_item.product.name
+
+            %td= text_field_tag 'cart[:quantity]', cart_item.quantity, class: 'form-control'
+
+            %td= number_to_currency(cart_item.price.to_f, precision: 2)
+
+            %td= number_to_currency(cart_item.price.to_f * cart_item.quantity.to_i, precision: 2)
+
             %td
-              %h5 Estimated shipping
-            %td.text-right
-              %h5
-                %strong $6.94
-          %tr
-            %td  
-            %td  
-            %td  
-            %td
-              %h3 Total
-            %td.text-right
-              %h3
-                %strong $31.53
-          %tr
-            %td  
-            %td  
-            %td  
-            %td
-              %button.btn.btn-default{:type => "button"}
-                %span.glyphicon.glyphicon-shopping-cart
-                Continue Shopping
-            %td
-              %button.btn.btn-success{:type => "button"}
-                Checkout
-                %span.glyphicon.glyphicon-play
+              = link_to "Remove", destroy_cart_item_carts_path(product_id: cart_item.product_id), method: :post, class: 'btn btn-danger', data: { confirm: "Are you sure want to remove item from cart." }
+        %tr
+          %td.text-right{colspan: 3}
+            %h5 Total
+          %td{colspan: 2}
+            %h5= number_to_currency(@total.to_f, precision: 2)
+      - else
+        %tr
+          %td{colspan: 5}
+            %h4.text-center No items present in your cart.
+
+.row
+  .col-md-12{style: "padding-right: 0"}
+    - if @cart_products.present?
+      = link_to "Proceed to checkout", checkouts_path, class: 'btn btn-success pull-right'
+      = link_to "Continue Shopping", root_path, class: 'btn btn-primary pull-right', style: "margin-right: 10px;"

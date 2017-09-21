@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20170920150628) do
     t.integer  "product_id"
     t.integer  "user_id"
     t.integer  "quantity"
+    t.float    "price"
     t.float    "total"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

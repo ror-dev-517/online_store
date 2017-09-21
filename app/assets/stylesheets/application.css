@@ -12,6 +12,7 @@
  *
  * require_tree .
  *= require bootstrap.min.css
+ *= require twitter-bootstrap-static/fontawesome
  *= require_self
  */
 
@@ -31,4 +32,12 @@ body {
 
 .pagination {
   margin-bottom: 30px;
+}
+
+.display-inline {
+  display: inline-block;
+}
+
+.border-1px {
+  border: 1px solid;
 }

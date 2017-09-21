@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   devise_for :users
 
@@ -13,7 +14,13 @@ Rails.application.routes.draw do
     post :add_to_cart
   end
 
-  resources :carts, only: [:index]
+  resources :carts do
+    collection do
+      post :destroy_cart_item
+    end
+  end
+
+  resources :checkouts
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

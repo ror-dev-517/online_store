@@ -10,33 +10,6 @@
           %p.card-text
             %strong
               Price : 
-              = product.price
+              = number_to_currency(product.price.to_f, precision: 2)
+
         = link_to "Add To Cart", product_add_to_cart_url(product_id: product.id), method: :post, remote: true, class: 'btn btn-info'
-
-/
-  .row
-    .col-sm-12.col-md-10.col-md-offset-1
-      %table.table.table-hover
-        %thead
-          %tr
-            %th
-            %th Product
-            %th.text-center Price
-            %th
-        %tbody
-          - @products.each do |product|
-            %tr
-              %td
-                .media
-                  %a.thumbnail.pull-left{:href => "#"}
-                    %img.media-object{:src => "http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png", :style => "width: 72px; height: 72px;"}/
-              %td
-                .media-body
-                  %h4.media-heading
-                    = product.name
-
-              %td.col-sm-1.col-md-1.text-center
-                %strong= product.price
-
-              %td
-                = link_to "Add To Cart", "#", class: 'btn btn-info'

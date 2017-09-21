@@ -5,5 +5,5 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   ## Associations
-  has_many :cart_items, dependent: :destroy
+  has_many :cart_items, class_name: "Cart", dependent: :destroy
 end
