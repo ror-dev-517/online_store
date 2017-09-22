@@ -26,13 +26,9 @@ class CartsController < ApplicationController
   def destroy_cart_item
     cart_item = Cart.find_by(product_id: params[:product_id], user_id: current_user.try(:id).to_i)
 
-    if cart_item.present? || session[:cart].present?
-      cart_item.destroy
-      session[:cart].delete(params[:product_id])
+      cart_item.destroy if cart_item.present?
+      session[:cart].delete(params[:product_id]) if session[:cart].present?
       redirect_to carts_path, notice: "Product sucessfully removed from your cart."
-    else
-      redirect_to carts_path, error: "Product not found."
-    end
   end
 
   def checkout
